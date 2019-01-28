@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name	Jv Dokkan
 // @updateURL	https://gist.github.com/dawnUltra/80e0813b999dc3c91be23049fa2943e0/raw/JvDokkan.user.js
-// @version	0.3
+// @version	0.4
 // @description	Outil dokkan pour jvc
 // @author	DawnUltraC
 // @include	http://www.jeuxvideo.com/forums/42-3004142-*
@@ -172,13 +172,13 @@ var tabTypeNormal = ["Agi|L'Agi", "Tec", "Int", "Pui", "End"];
 
 var tabTypeSE = ["Super Agi","Ext Agi|Extreme Agi|Extrême Agi","Super Tec","Ext Tec|Extreme Tec|Extrême Tec","Super Int","Ext Int|Extreme Int|Extrême Int","Super Pui","Ext Pui|Extreme Pui|Extrême Pui","Super End","Ext End|Extreme End|Extrême End"]
 
-var tabDivers = ["Ssr","Ur","Tur","Lr","Ds","Ds Rouge"];
+var tabDivers = ["Ssr","Ur","Tur","Lr","Ds Rouge","Ds"];
 
 var tabTypeSEFormat = ["icoSAgi","icoEAgi","icoSTec","icoETec","icoSInt","icoEInt","icoSPui","icoEPui","icoSEnd","icoEEnd"];
 
 var tabTypeNormalFormat = ["icoAgi","icoTec","icoInt","icoPui","icoEnd"];
 
-var tabDiversFormat = ["icoSsr","icoUr","icoTur","icoLr","icoDs","icoDsRouge"];
+var tabDiversFormat = ["icoSsr","icoUr","icoTur","icoLr","icoDsRouge","icoDs",];
 
 var tabCat = [""]
 
