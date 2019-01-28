@@ -245,7 +245,7 @@ function prepareWikia(element,linkTab) {
 	}
 }
 
-//function displayCat(element) {
+//function displayCat(element) { EN CONSTRUCTION
 //	var regexWikiaLink = /(<a href="(http:\/\/fr\.dokkanbattlefr\.wikia\.com\/wiki\/.*?|http:\/\/dbz-dokkanbattle\.wikia\.com\/wiki\/.*?)".*?<\/a>)/gi
 //	var matches, output = [[]];
 //	while (matches = regexWikiaLink.exec(element.innerHTML)) {
