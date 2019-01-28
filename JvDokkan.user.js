@@ -1,6 +1,7 @@
 // ==UserScript==
 // @name	Jv Dokkan
 // @updateURL	https://gist.github.com/dawnUltra/80e0813b999dc3c91be23049fa2943e0/raw/JvDokkan.user.js
+// @downloadURL	https://gist.github.com/dawnUltra/80e0813b999dc3c91be23049fa2943e0/raw/JvDokkan.user.js
 // @version	0.4
 // @description	Outil dokkan pour jvc
 // @author	DawnUltraC
