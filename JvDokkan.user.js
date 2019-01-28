@@ -1,14 +1,13 @@
 // ==UserScript==
-// @name         Jv Dokkan
-// @namespace    http://tampermonkey.net/
-// @version      0.1
-// @description  Outil dokkan pour jvc
-// @author       You
-// @include      http://www.jeuxvideo.com/forums/42-3004142-*
-// @include 	 http://www.jeuxvideo.com/forums/42-3012000-*
-// @require		 https://code.jquery.com/jquery-3.3.1.min.js
-// @grant        GM_addStyle
-// @grant        GM.xmlHttpRequest
+// @name	Jv Dokkan
+// @updateURL https://gist.github.com/dawnUltra/80e0813b999dc3c91be23049fa2943e0/raw/eb773f5d471362ef4f18f43fa25e65ce090cc53c/JvDokkan.user.js
+// @version	0.2
+// @description	Outil dokkan pour jvc
+// @author	DawnUltraC
+// @include	http://www.jeuxvideo.com/forums/42-3004142-*
+// @include	http://www.jeuxvideo.com/forums/42-3012000-*
+// @grant	GM_addStyle
+// @grant	GM.xmlHttpRequest
 // ==/UserScript==
 
 // ---------- RESSOURCES ----------
