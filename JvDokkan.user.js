@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name	Jv Dokkan
-// @updateURL https://gist.github.com/dawnUltra/80e0813b999dc3c91be23049fa2943e0/raw/eb773f5d471362ef4f18f43fa25e65ce090cc53c/JvDokkan.user.js
-// @version	0.2
+// @updateURL	https://gist.github.com/dawnUltra/80e0813b999dc3c91be23049fa2943e0/raw/eb773f5d471362ef4f18f43fa25e65ce090cc53c/JvDokkan.user.js
+// @version	0.3
 // @description	Outil dokkan pour jvc
 // @author	DawnUltraC
 // @include	http://www.jeuxvideo.com/forums/42-3004142-*
@@ -151,6 +151,8 @@ var icoEInt = `https://vignette.wikia.nocookie.net/dokkanbattlefr/images/3/31/Ex
 var icoEPui = `https://vignette.wikia.nocookie.net/dokkanbattlefr/images/f/f2/Extr%C3%AAmepui.png/revision/latest?cb=20170131143407&path-prefix=fr`;
 var icoEEnd = `https://vignette.wikia.nocookie.net/dokkanbattlefr/images/6/6a/Extr%C3%AAmeEND.png/revision/latest?cb=20170129201227&path-prefix=fr`;
 
+// DIVERS
+
 // Rareté
 
 var icoSsr = `https://i.imgur.com/hJFglO1.png"/>`;
@@ -158,9 +160,11 @@ var icoUr = `https://vignette.wikia.nocookie.net/dokkanbattlefr/images/5/53/UR.p
 var icoTur = `https://vignette.wikia.nocookie.net/dbz-dokkanbattle/images/2/27/TUR_.png/revision/latest?cb=20160719232222"/>`;
 var icoLr = `https://vignette.wikia.nocookie.net/dbz-dokkanbattle/images/b/bc/LR_logo.png/revision/latest?cb=20161223130945`;
 
-// Special
+// Spécial
 
 var icoDs = `https://vignette.wikia.nocookie.net/dbz-dokkanbattle/images/2/27/DS_icon.png/revision/latest?cb=20150903084549`
+
+var icoDsRouge = `https://vignette.wikia.nocookie.net/dbz-dokkanbattle/images/3/38/God_Stone.png/revision/latest?cb=20170716164559`;
 
 // Tableaux
 
@@ -168,13 +172,13 @@ var tabTypeNormal = ["Agi|L'Agi", "Tec", "Int", "Pui", "End"];
 
 var tabTypeSE = ["Super Agi","Ext Agi|Extreme Agi|Extrême Agi","Super Tec","Ext Tec|Extreme Tec|Extrême Tec","Super Int","Ext Int|Extreme Int|Extrême Int","Super Pui","Ext Pui|Extreme Pui|Extrême Pui","Super End","Ext End|Extreme End|Extrême End"]
 
-var tabRare = ["Ssr","Ur","Tur","Lr","Ds"];
+var tabDivers = ["Ssr","Ur","Tur","Lr","Ds","Ds Rouge"];
 
 var tabTypeSEFormat = ["icoSAgi","icoEAgi","icoSTec","icoETec","icoSInt","icoEInt","icoSPui","icoEPui","icoSEnd","icoEEnd"];
 
 var tabTypeNormalFormat = ["icoAgi","icoTec","icoInt","icoPui","icoEnd"];
 
-var tabRareFormat = ["icoSsr","icoUr","icoTur","icoLr","icoDs"];
+var tabDiversFormat = ["icoSsr","icoUr","icoTur","icoLr","icoDs","icoDsRouge"];
 
 var tabCat = [""]
 
@@ -189,20 +193,20 @@ function main() {
 		var paragraphes = posts[i].querySelectorAll('p')
 		paragraphes.forEach(function(element) {
 			// fonction pour remplacer les icones
-			icoPrepare(element,tabTypeNormal,tabTypeSE,tabRare,tabTypeSEFormat,tabTypeNormalFormat,tabRareFormat);
+			icoPrepare(element,tabTypeNormal,tabTypeSE,tabDivers,tabTypeSEFormat,tabTypeNormalFormat,tabDiversFormat);
 			// fonction pour recuperer tout les liens du wikia
 			prepareWikia(element,linkTab);
 			// fonction pour Afficher les catégories
 			//displayCat(element);
 		});
 	}
-	loadIco(tabTypeSEFormat,tabTypeNormalFormat,tabRareFormat);
+	loadIco(tabTypeSEFormat,tabTypeNormalFormat,tabDiversFormat);
 	requestImg(linkTab);
 }
 
 //<img class="ico` + strIco + `" src="">
 
-function icoPrepare(element,tabTypeNormal,tabTypeSE,tabRare,tabTypeSEFormat,tabTypeNormalFormat,tabRareFormat) {
+function icoPrepare(element,tabTypeNormal,tabTypeSE,tabDivers,tabTypeSEFormat,tabTypeNormalFormat,tabDiversFormat) {
 	for(var i=0;i<tabTypeSE.length;i++){
 		let regex = new RegExp("(?:^|\\s|\\()(" + tabTypeSE[i] + ")(?:$|\\s|\\.|\\,)","gi");
 		element.innerHTML = element.innerHTML.replace(regex,` <img class="`+ tabTypeSEFormat[i] + `" src=""> `);
@@ -211,9 +215,9 @@ function icoPrepare(element,tabTypeNormal,tabTypeSE,tabRare,tabTypeSEFormat,tabT
 		let regex = new RegExp("(?:^|\\s|\\()(" + tabTypeNormal[j] + ")(?:$|\\s|\\.|\\,)","gi");
 		element.innerHTML = element.innerHTML.replace(regex,` <img class="`+ tabTypeNormalFormat[j] + `" src=""> `);
 	}
-	for(var k=0;k<tabRare.length;k++){
-		let regex = new RegExp("(?:^|\\s|\\()(" + tabRare[k] + ")(?:$|\\s|\\.|\\,)","gi");
-		element.innerHTML = element.innerHTML.replace(regex,` <img class="`+ tabRareFormat[k] + `" src=""> `);
+	for(var k=0;k<tabDivers.length;k++){
+		let regex = new RegExp("(?:^|\\s|\\()(" + tabDivers[k] + ")(?:$|\\s|\\.|\\,)","gi");
+		element.innerHTML = element.innerHTML.replace(regex,` <img class="`+ tabDiversFormat[k] + `" src=""> `);
 	}
 }
 
@@ -286,7 +290,7 @@ function requestImg(linkTab) {
 	}
 }
 
-function loadIco(tabTypeSEFormat,tabTypeNormalFormat,tabRareFormat){
+function loadIco(tabTypeSEFormat,tabTypeNormalFormat,tabDiversFormat){
 	for(var i=0;i<tabTypeSEFormat.length;i++){
 		let icos = document.querySelectorAll(`.`+ tabTypeSEFormat[i]);
 		icos.forEach(function(ico) {
@@ -299,10 +303,10 @@ function loadIco(tabTypeSEFormat,tabTypeNormalFormat,tabRareFormat){
 			ico.src = eval(tabTypeNormalFormat[j]);
 		});
 	}
-	for(var k=0;k<tabRareFormat.length;k++){
-		let icos = document.querySelectorAll(`.`+ tabRareFormat[k]);
+	for(var k=0;k<tabDiversFormat.length;k++){
+		let icos = document.querySelectorAll(`.`+ tabDiversFormat[k]);
 		icos.forEach(function(ico) {
-			ico.src = eval(tabRareFormat[k]);
+			ico.src = eval(tabDiversFormat[k]);
 		});
 	}
 }
