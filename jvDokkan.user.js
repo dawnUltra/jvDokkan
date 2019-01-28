@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name	Jv Dokkan
-// @updateURL	https://gist.github.com/dawnUltra/80e0813b999dc3c91be23049fa2943e0/raw/JvDokkan.user.js
-// @downloadURL	https://gist.github.com/dawnUltra/80e0813b999dc3c91be23049fa2943e0/raw/JvDokkan.user.js
+// @updateURL	https://dawnultra.github.io/jvdokkan/jvDokkan.user.js
+// @downloadURL	https://dawnultra.github.io/jvdokkan/jvDokkan.user.js
 // @version	0.6
-// @description	Outil dokkan pour jvc
-// @author	DawnUltraC
+// @description	Script Dokkan Battle pour le forum JVC
+// @author	DawnUltra
 // @include	http://www.jeuxvideo.com/forums/42-3004142-*
 // @include	http://www.jeuxvideo.com/forums/42-3012000-*
 // @grant	GM_addStyle
