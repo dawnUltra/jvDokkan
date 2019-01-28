@@ -2,7 +2,7 @@
 // @name	Jv Dokkan
 // @updateURL	https://gist.github.com/dawnUltra/80e0813b999dc3c91be23049fa2943e0/raw/JvDokkan.user.js
 // @downloadURL	https://gist.github.com/dawnUltra/80e0813b999dc3c91be23049fa2943e0/raw/JvDokkan.user.js
-// @version	0.5
+// @version	0.6
 // @description	Outil dokkan pour jvc
 // @author	DawnUltraC
 // @include	http://www.jeuxvideo.com/forums/42-3004142-*
@@ -209,16 +209,16 @@ function main() {
 
 function icoPrepare(element,tabTypeNormal,tabTypeSE,tabDivers,tabTypeSEFormat,tabTypeNormalFormat,tabDiversFormat) {
 	for(var i=0;i<tabTypeSE.length;i++){
-		let regex = new RegExp("(?:^|\\s|\\(|\")(" + tabTypeSE[i] + ")(?:$|\\s|\\.|\\,)","gi");
-		element.innerHTML = element.innerHTML.replace(regex,` <img class="`+ tabTypeSEFormat[i] + `" src=""> `);
+		let regex = new RegExp("(?<!week)(^|\\s|\\(|\")(" + tabTypeSE[i] + ")($|\\s|\\.|\\,)","gi");
+		element.innerHTML = element.innerHTML.replace(regex,`$1<img class="`+ tabTypeSEFormat[i] + `" src="">$3`);
 	}
 	for(var j=0;j<tabTypeNormal.length;j++){
-		let regex = new RegExp("(?:^|\\s|\\(|\")(" + tabTypeNormal[j] + ")(?:$|\\s|\\.|\\,)","gi");
-		element.innerHTML = element.innerHTML.replace(regex,` <img class="`+ tabTypeNormalFormat[j] + `" src=""> `);
+		let regex = new RegExp("(?<!week)(^|\\s|\\(|\")(" + tabTypeNormal[j] + ")($|\\s|\\.|\\,)","gi");
+		element.innerHTML = element.innerHTML.replace(regex,`$1<img class="`+ tabTypeNormalFormat[j] + `" src="">$3`);
 	}
 	for(var k=0;k<tabDivers.length;k++){
-		let regex = new RegExp("(?:^|\\s|\\(|\")(" + tabDivers[k] + ")(?:$|\\s|\\.|\\,)","gi");
-		element.innerHTML = element.innerHTML.replace(regex,` <img class="`+ tabDiversFormat[k] + `" src=""> `);
+		let regex = new RegExp("(?<!week)(^|\\s|\\(|\")(" + tabDivers[k] + ")($|\\s|\\.|\\,)","gi");
+		element.innerHTML = element.innerHTML.replace(regex,`$1<img class="`+ tabDiversFormat[k] + `" src="">$3`);
 	}
 }
 
