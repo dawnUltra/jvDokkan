@@ -102,8 +102,8 @@ img[class^="ico"]{
 height:3em;
 }
 
-.icoDs {
-	height:1.5em!important;
+img[class^="icoDs"]{
+	height:1.5em;
 }
 
 .imgWikia {
