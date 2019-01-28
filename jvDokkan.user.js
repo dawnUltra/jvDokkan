@@ -2,7 +2,7 @@
 // @name	Jv Dokkan
 // @updateURL	https://dawnultra.github.io/jvdokkan/jvDokkan.user.js
 // @downloadURL	https://dawnultra.github.io/jvdokkan/jvDokkan.user.js
-// @version	0.6
+// @version	0.7
 // @description	Script Dokkan Battle pour le forum JVC
 // @author	DawnUltra
 // @include	http://www.jeuxvideo.com/forums/42-3004142-*
