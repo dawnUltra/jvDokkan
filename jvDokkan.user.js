@@ -28,6 +28,7 @@ function get(url,ind,callback) {
 				responseHTML = new DOMParser().parseFromString(response.responseText, "text/html");
 				var imgSrc;
 				var isEvent = false;
+				var isCat = false;
 				if(/dbz-dokkanbattle/i.test(url)) {
 					// Wikia Anglais
 					if(responseHTML.querySelectorAll('.page-header__categories')[0].children[1].children[0].innerText.match(/Events/gi)) {
@@ -42,11 +43,11 @@ function get(url,ind,callback) {
 					else {
 						//Image Personnage Wikia Anglais
 						imgSrc = responseHTML.querySelector('a[href^="https://vignette.wikia.nocookie.net/"]').href;
-						callback(imgSrc,ind,isEvent);
+						callback(imgSrc,ind);
 					}
 				}
 				//
-				else if(/fr.dokkanbattlefr/i.test(url)) {
+				else if(/dokkanbattlefr/i.test(url)) {
 					// Wikia français
 					if(responseHTML.querySelectorAll('.page-header__categories')[0].children[1].children[0].innerText.match(/Battle Z suprême|Événement/gi)){
 						//Evenement sur le Wikia français
@@ -57,10 +58,15 @@ function get(url,ind,callback) {
 							callback(imgSrc,ind,isEvent);
 						});
 					}
+					else if(/Cat%C3%A9gorie/i.test(url)){
+						isCat = true;
+						imgSrc = responseHTML.querySelector('.page-header__title').innerText.replace(/(.*)- (.*)/i,"$2")
+						callback(imgSrc,ind,isEvent,isCat);
+					}
 					else {
 						// Image sur le Wikia français
 						imgSrc = responseHTML.querySelector('.image.image-thumbnail').children[0].dataset.src;
-						callback(imgSrc,ind,isEvent);
+						callback(imgSrc,ind);
 					}
 				}
 			}
@@ -78,11 +84,19 @@ function getEventBanner(urlO,urlM,callback){
 			var responseHTML = null;
 			if (!response.responseHTML) {
 				responseHTML = new DOMParser().parseFromString(response.responseText, "text/html");
-				if(urlO.match(/http:\/\/dbz-dokkanbattle\.wikia\.com/)) {
-					let imgSrc = responseHTML.querySelector('a[href="' + urlO.match(/\/wiki\/.*/) + '"]').previousElementSibling.children[0].dataset.src
+				if(urlO.match(/dbz-dokkanbattle/i)) {
+					//Wikia anglais
+					if(urlO.charAt(urlO.length-1) == ".") {
+						console.log(responseHTML.querySelector('a[href="' + urlO.match(/\/wiki\/.*/) + '"]'));
+						let imgSrc = responseHTML.querySelector('a[href="' + urlO.match(/\/wiki\/.*/) + '"]').previousElementSibling.children[0].dataset.src
+					}
+					else {
+						let imgSrc = responseHTML.querySelector('a[href="' + urlO.match(/\/wiki\/.*/) + '"]').previousElementSibling.children[0].dataset.src
+					}
 					callback(imgSrc);
 				}
 				else {
+					//Wikia français
 					responseHTML = new DOMParser().parseFromString(response.responseText, "text/html");
 					let imgSrc = responseHTML.querySelector('a[href="' + urlO + '"]').parentElement.parentElement.querySelector('img[width="400"]').dataset.src
 					callback(imgSrc);
@@ -124,6 +138,26 @@ img[class^="icoDs"]{
 
 .bannerWikia:hover {
 	filter:brightness(100%);
+}
+
+.categorie {
+    display: inline-block;
+	padding:5px;
+    text-align: center;
+    vertical-align: middle;
+    border: 2px solid #5da03c;
+    border-radius: 10px;
+    background: linear-gradient(to bottom, #123d12, #090e09);
+    box-shadow: #050000 0px 0px 0px 1px;
+    font: italic normal normal 20px trebuchet ms;
+    color: #d3b239!important;
+    text-decoration: none;
+	filter:brightness(85%);
+	transition: all 0.2s;
+}
+.categorie:hover {
+    filter:brightness(110%);
+	color: #d3b239!important;
 }
 
 `)
@@ -223,7 +257,7 @@ function icoPrepare(element,tabTypeNormal,tabTypeSE,tabDivers,tabTypeSEFormat,ta
 }
 
 function prepareWikia(element,linkTab) {
-	var regexWikiaLink = /(<a href="(https?:\/\/fr\.dokkanbattlefr\.wikia\.com\/wiki\/.*?|https?:\/\/dbz-dokkanbattle\.fandom\.com\/wiki\/.*?)".*?<\/a>)/gi
+	var regexWikiaLink = /(<a href="(https?:\/\/dokkanbattlefr\.fandom\.com\/fr\/wiki\/.*?|https?:\/\/dbz-dokkanbattle\.(wikia|fandom)\.com\/wiki\/.*?)".*?<\/a>)/gi
 	var matches, output = [[]];
 	while (matches = regexWikiaLink.exec(element.innerHTML)) {
 		output.push(matches);
@@ -249,41 +283,18 @@ function prepareWikia(element,linkTab) {
 	}
 }
 
-//function displayCat(element) { EN CONSTRUCTION
-//	var regexWikiaLink = /(<a href="(http:\/\/fr\.dokkanbattlefr\.wikia\.com\/wiki\/.*?|http:\/\/dbz-dokkanbattle\.wikia\.com\/wiki\/.*?)".*?<\/a>)/gi
-//	var matches, output = [[]];
-//	while (matches = regexWikiaLink.exec(element.innerHTML)) {
-//		output.push(matches);
-//	}
-//	if(output.length>1){
-//		for(var i=1;i<output.length;i++) {
-//			var canAdd=true
-//			var ind;
-//			for(var j=0;j<linkTab.length;j++){
-//				if(output[i][2] == linkTab[j]){
-//					canAdd=false;
-//					ind = j;
-//				}
-//			}
-//			if(canAdd){
-//				linkTab.push(output[i][2]);
-//				element.innerHTML = element.innerHTML.replace(output[i][1],`<a href="`+ output[i][2] +`"><img class="imgWikia link-` + (linkTab.length-1) + `" src="https://samherbert.net/svg-loaders/svg-loaders/oval.svg"</a>`);
-//			}
-//			else {
-//				element.innerHTML = element.innerHTML.replace(output[i][1],`<a href="`+ output[i][2] +`"><img class="imgWikia link-` + ind + `" src="https://samherbert.net/svg-loaders/svg-loaders/oval.svg"</a>`);
-//			}
-//		}
-//	}
-//}
-
 function requestImg(linkTab) {
 	var nbLoaded=0;
 	for(var i=0;i<linkTab.length;i++) {
-		get(linkTab[i],i,function(imgSrc,ind,isEvent){
+		get(linkTab[i],i,function(imgSrc,ind,isEvent,isCat){
 			var imgs = document.querySelectorAll(`.imgWikia.link-`+ ind + ``)
 			imgs.forEach(function(img) {
 				if(isEvent) {
 					img.className = img.className.replace(/imgWikia/,"bannerWikia");
+				}
+				else if(isCat) {
+					img.parentElement.className = "categorie";
+					img.outerHTML = imgSrc
 				}
 				img.src = imgSrc;
 			});
